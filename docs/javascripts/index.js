@@ -32,8 +32,8 @@ var HomeTemplate = [
 // ' </div>',
 //Input field
 '<div class="container-fluid">',
-  '<div class="row-fluid">',
-    ' <label>Location:</label><input id="input-location" type="text" placeholder="ZIP or City, State or Airport or Port of Call">',
+  '<div class="row-fluid ui-widget">',
+    ' <label for="city_state">Location:</label><input class="span12" id="city_state" placeholder="ZIP or City, State or Airport">',
   '</div>',
   '<div class="row-fluid">',
     '<div class="span8">',
@@ -143,13 +143,14 @@ var ResultsTemplate = [
 // '  <input type="search" placeholder="Search" id="results-input">',
 '<br>',
 '<br>',
+
 '<div id="result-headings">',
 '<p id="location-heading">Locations</p>',
 '<p id="availibility-heading">Availibility</p>',
 '</div>',
 ' <div class="ratchet-examples">',
 '  <ul class="list inset">',
-'   <li>',
+'   <li class="selected-item">',
 '     <a class="result-link">',
 '       AUSTIN NORTH',
 '<br>',
@@ -163,7 +164,7 @@ var ResultsTemplate = [
 '     </a>',
 '   </li>',
 '   <li>',
-'     <a href="#">',
+'     <a class="result-link">',
 '       AUSTIN DOWNTOWN',
 '<br>',
 '       1201 WEST 5TH',
@@ -176,7 +177,7 @@ var ResultsTemplate = [
 '     </a>',
 '   </li>',
 '   <li>',
-'     <a href="#">',
+'     <a class="result-link">',
 '       AUSTIN SOUTH',
 '<br>',
 '       4352 S INTERSTATE 35',
@@ -201,7 +202,7 @@ var ResultsTemplate = [
 '     </a>',
 '   </li>',
 '   <li>',
-'     <a href="#">',
+'     <a class="result-link">',
 '       AUSTIN BRAKER LANE',
 '<br>',
 '       707 E. BRAKER LN STE 103',
@@ -354,55 +355,34 @@ var VehicleResultsTemplate = [
 '<br>',
 '<br>',
 '<div id="result-headings">',
-'<p id="location-heading">Locations</p>',
-'<p id="availibility-heading">Availibility</p>',
+'<p id="location-heading">Vehicles</p>',
+'<p id="availibility-heading">Starting Price per Day</p>',
 '</div>',
 ' <div class="ratchet-examples">',
 '  <ul class="list inset">',
 '   <li>',
-'     <a href="here lies the function promise to move on to the next page">',
+'<div class="row-fluid">',
+'     <a href="#">',
 '       <img src="./docs/images/smallCar.gif">',
-'       <span class="chevron"></span>',
-'       <span class="count">12</span>',
+'       <span class="count">$12 / day</span>',
 '     </a>',
+'</div>',
 '   </li>',
 '   <li>',
+'<div class="row-fluid">',
 '     <a href="#">',
-'       AUSTIN DOWNTOWN',
-'<br>',
-'       1201 WEST 5TH',
-'<br>',
-'       AUSTIN, TX 78703',
-'<br>',
-'       ( 2 miles )',
-'       <span class="chevron"></span>',
-'       <span class="count">30</span>',
+'       <img src="./docs/images/fullsizeCar.png">',
+'       <span class="count">$12 / day</span>',
 '     </a>',
+'</div>',
 '   </li>',
 '   <li>',
+'<div class="row-fluid">',
 '     <a href="#">',
-'       AUSTIN SOUTH',
-'<br>',
-'       4352 S INTERSTATE 35',
-'<br>',
-'       AUSTIN, TX 78745',
-'<br>',
-'       ( 2 miles )',
-'       <span class="chevron"></span>',
-'       <span class="count">4</span>',
+'       <img src="./docs/images/smallCar.gif">',
+'       <span class="count">$12 / day</span>',
 '     </a>',
-'   </li>',
-'   <li>',
-'     <a href="#">',
-'       BARTON SPRINGS',
-'<br>',
-'       319 S LAMAR',
-'<br>',
-'       AUSTIN, TX 78704',
-'<br>',
-'       ( 3 miles )',
-'       <span class="count unavailable">0</span>',
-'     </a>',
+'</div>',
 '   </li>',
 '   <li>',
 '     <a href="#">',
@@ -418,7 +398,6 @@ var VehicleResultsTemplate = [
 '     </a>',
 '   </li>',
 '  </ul>',
-'  <div class="example-cnts"><span class="count-positive">1</span><span class="count">2</span><span class="count">3</span><span class="count">4</span></div>',
 ' </div>',
 '</div>'
 
@@ -451,7 +430,7 @@ var VehicleResultsView = Jr.View.extend({
   },
 
   onClickButtonFilter: function() {
-    Jr.Navigator.navigate('filter',{
+    Jr.Navigator.navigate('vehicle_filter',{
       trigger: true,
       animation: {
         type: Jr.Navigator.animations.SLIDE_STACK,
@@ -459,6 +438,66 @@ var VehicleResultsView = Jr.View.extend({
       }
     });
   }
+});
+
+// ## VehicleFilterTemplate
+
+var VehicleFilterTemplate = [
+'<header class="bar-title">',
+' <div class="header-animated">',
+' <div class="button-prev">Back</div>',
+' <h1 class="title">Filters</h1>',
+'</header>',
+'<div class="container-fluid content filter-content">',
+' <div class="row-fluid">',
+' <p>Vehicle Class:</p>',
+  '<select>',
+    '<option value="all">All Vehicle Types</option>',
+    '<option value="economy">Economy</option>',
+    '<option value="compact">Compact</option>',
+    '<option value="standard">Standard</option>',
+    '<option value="full_size">Full Size</option>',
+    '<option value="premium">Premium</option>',
+    '<option value="cargo_van">Cargo Van</option>',
+  '</select>',
+' </div> ',
+' <div class="row-fluid">',
+' <p>Renter\'s Age:</p>',
+  '<select>',
+    '<option value="25_plus">25 and Up</option>',
+    '<option value="21-24">21-24</option>',
+    '<option value="18-29">18-29</option>',
+  '</select>',
+' </div> ',
+'</div> '
+].join('\n');
+
+// ## VehicleFilterView
+
+var VehicleFilterView = Jr.View.extend({
+  render: function() {
+    this.$el.html(VehicleFilterTemplate);
+    return this;
+  },
+// ## Pushstate
+  events: {
+    'click .button-prev': 'onClickButtonPrev',
+    'click .example-toggle': 'onClickExampleToggle'
+  },
+
+  onClickButtonPrev: function() {
+    Jr.Navigator.navigate('vehicle_results',{
+      trigger: true,
+      animation: {
+        type: Jr.Navigator.animations.SLIDE_STACK,
+        direction: Jr.Navigator.directions.LEFT
+      }
+    });
+  },
+  onClickExampleToggle: function() {
+    this.$('.example-toggle').toggleClass('active');
+  }
+
 });
 
 // ### RatchetTemplate
@@ -551,6 +590,7 @@ var AppRouter = Jr.Router.extend({
     'results': 'results',
     'filter': 'filter',
     'vehicle_results': 'vehicle_results',
+    'vehicle_filter': 'vehicle_filter',
     'ratchet': 'ratchet'
   },
 
@@ -569,6 +609,10 @@ var AppRouter = Jr.Router.extend({
   vehicle_results: function() {
     var vehicleResultsView = new VehicleResultsView();
     this.renderView(vehicleResultsView);
+  },
+  vehicle_filter: function() {
+    var vehicleFilterView = new VehicleFilterView();
+    this.renderView(vehicleFilterView);
   },
   ratchet: function() {
     var ratchetView = new RatchetView();

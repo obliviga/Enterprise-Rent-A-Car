@@ -383,9 +383,9 @@ label {
   cursor: pointer;
 }
 
-
-
-
+a .selected-item {
+  background-color: gray !important;
+}
 
 
 

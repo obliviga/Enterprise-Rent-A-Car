@@ -13,7 +13,26 @@
 
   <link rel="stylesheet" href="docs/stylesheets/lib/font-awesome.min.css">
   <link rel="stylesheet" href="docs/stylesheets/lib/bootstrap.mod.css">
+  <link rel="stylesheet" href="docs/stylesheets/lib/jquery-ui.min.css">
   <link rel="stylesheet" href="docs/stylesheets/style.css">
+    <script src="lib/javascripts/jquery-2.1.1.min.js"></script>
+    <script src="lib/javascripts/jquery-ui.js"></script>
+   <script>
+    $(function() {
+      var cityState = [
+      "Austin, TX",
+      "New York City, NY",
+      "Newark, NJ",
+      "Los Angeles, CA",
+      "AUS Airport",
+      "LAX Airport"
+      ];
+      $( "#city_state" ).autocomplete({
+        source: cityState
+      });
+
+    });
+</script>
 </head>
 
 <body>
@@ -30,6 +49,7 @@
   <script src="lib/javascripts/zepto.flickable.min.js"></script>
   <script src="lib/javascripts/lodash.min.js"></script>
   <script src="lib/javascripts/backbone-min.js"></script>
+
   <script src="src/javascripts/junior.js"></script>
 
   <script src="docs/javascripts/index.js"></script>
