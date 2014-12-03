@@ -33,7 +33,7 @@ var HomeTemplate = [
 //Input field
 '<div class="container-fluid">',
   '<div class="row-fluid">',
-    ' <label>Location:</label><input id="input-location" type="text" placeholder="City, State or Zipcode">',
+    ' <label>Location:</label><input id="input-location" type="text" placeholder="ZIP or City, State or Airport or Port of Call">',
   '</div>',
   '<div class="row-fluid">',
     '<div class="span8">',
@@ -51,9 +51,17 @@ var HomeTemplate = [
       ' <label>Return Time:</label><input type="time">',
     '</div>',
   '</div>',
-  // Use a ratchet button here
-  ' <div class="button-positive button-block show-more-button">Find a rental car near you!</div>',
+  '<div class="row-fluid">',
+  '<label><input type="checkbox">',
+      '&nbsp;Return to a different location</label>',
+      
   '</div>',
+  // Use a ratchet button here
+  ' <div class="button-positive button-block show-more-button">Find a rental car!</div>',
+  '<br>',
+    '<footer>&copy; 2014 Enterprise Rent-A-Car. Patent Pending</footer>',
+  '</div>',
+
 '</div>'
 // Join the array with a new-line for a quick and easy html template.
 ].join('\n');
@@ -254,13 +262,40 @@ var ResultsView = Jr.View.extend({
 var FilterTemplate = [
 '<header class="bar-title">',
 ' <div class="header-animated">',
-'   <div class="button-prev">Back</div>',
-'   <h1 class="title">Pushstate API</h1>',
+' <div class="button-prev">Back</div>',
+' <h1 class="title">Filters</h1>',
 '</header>',
-'<div class="content pushstate-content">',
-'  <summary>In combination with backbone\'s routing and the pushstate api, Jr. maintains animations when you use pushstate.</summary>',
-'  <i class="icon-umbrella"></i>',
-'  <p>Push the browser back button to watch it work.</p>',
+'<div class="container-fluid content filter-content">',
+' <div class="row-fluid">',
+'<ul class="list inset">',
+'   <li>',
+'     <a href="#">',
+'       Show Airport Only',
+'  <div class="toggle inactive example-toggle"><div class="toggle-handle"></div></div>',
+'     </a>',
+'   </li>',
+'</ul>',
+' </div> ',
+' <div class="row-fluid">',
+' <p>Vehicle Class:</p>',
+  '<select>',
+    '<option value="all">All Vehicle Types</option>',
+    '<option value="economy">Economy</option>',
+    '<option value="compact">Compact</option>',
+    '<option value="standard">Standard</option>',
+    '<option value="full_size">Full Size</option>',
+    '<option value="premium">Premium</option>',
+    '<option value="cargo_van">Cargo Van</option>',
+  '</select>',
+' </div> ',
+' <div class="row-fluid">',
+' <p>Renter\'s Age:</p>',
+  '<select>',
+    '<option value="25_plus">25 and Up</option>',
+    '<option value="21-24">21-24</option>',
+    '<option value="18-29">18-29</option>',
+  '</select>',
+' </div> ',
 '</div> '
 ].join('\n');
 
@@ -271,9 +306,10 @@ var FilterView = Jr.View.extend({
     this.$el.html(FilterTemplate);
     return this;
   },
-
+// ## Pushstate
   events: {
-    'click .button-prev': 'onClickButtonPrev'
+    'click .button-prev': 'onClickButtonPrev',
+    'click .example-toggle': 'onClickExampleToggle'
   },
 
   onClickButtonPrev: function() {
@@ -284,6 +320,10 @@ var FilterView = Jr.View.extend({
         direction: Jr.Navigator.directions.LEFT
       }
     });
+  },
+  onClickExampleToggle: function() {
+    // Simple example of how the on/off toggle switch works.
+    this.$('.example-toggle').toggleClass('active');
   }
 
 });

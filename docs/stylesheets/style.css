@@ -127,13 +127,13 @@ header.junior-intro {
   margin: 14px;
 }
 
-/* Mobile Pushstate Example */
+/* Mobile filter Example */
 
-.pushstate-content {
+.filter-content {
   padding: 10px;
 }
 
-.pushstate-content .icon-umbrella {
+.filter-content .icon-umbrella {
   font-size: 14em;
   margin: auto;
   width: 100%;
@@ -142,8 +142,10 @@ header.junior-intro {
   line-height: 160px;
 }
 
-.pushstate-content p {
+.filter-content p {
   font-size: 1.4em;
+  color: white;
+  margin-top: 15px;
 }
 
 
@@ -240,6 +242,8 @@ body {
 
 footer {
   height: 50px;
+  color: white;
+  text-align: center;
 }
 
 
@@ -331,6 +335,10 @@ body #bsap_aplink, body #bsap_aplink:hover { display: block; font-size: 10px; ma
 
 /*CUSTOM STYLING*/
 
+.left {
+  float: left;
+}
+
 input {
   padding-left: 1em !important;
 }
@@ -357,12 +365,14 @@ label {
   margin-left: 17px;
   text-decoration: underline;
   float: left;
+  color: white;
 }
 
 #availibility-heading {
   text-decoration: underline;
   float: right;
   margin-right: 20px;
+  color: white;
 }
 
 .unavailable {
