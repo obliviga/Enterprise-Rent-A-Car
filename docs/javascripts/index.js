@@ -1,12 +1,3 @@
-// This is the javascript file that is used to power the live example in the iphone on this [github page for the Junior HTML5 mobile framework](http://justspamjustin.github.com/junior/).
-// Don't forget, that you need to include the necessary js and css dependencies
-// that are listed on the main github page.  You will also need some initial scaffolding
-// in the body of your HTML like this:
-// <pre class="highlight">&lt;div id=<em class="s1">"app-container"</em>&gt;
-//    &lt;div id=<em class="s1">"app-main"</em>&gt;
-//    &lt;div&gt;
-//&lt;div&gt;</pre>
-
 // ## Defining Templates and Views
 
 // ### HomeTemplate
@@ -20,31 +11,49 @@ var HomeTemplate = [
 '   <h1 class="junior-name"><img src="img/logo.jpg" alt="Enterprise Rent-A-Car"></h1>',
 '   <p>Rental Cars at Low, Affordable Rates</p>',
 ' </header>',
-// In the view, we will use the flickable zepto plugin here, to animate this carousel.
-' <div class="carousel-container">',
-'   <ul class="carousel-list">',
-'     <li class="carousel-item native-look-and-feel">',
-'     </li>',
-'     <li class="carousel-item carousel-content">',
-'       <summary>Carousels using flickable.js</summary>',
-'       <i class="icon-picture"></i>',
-'     </li>',
-'     <li class="carousel-item backbone-content">',
-'       <summary>Integrated with Backbone.js</summary>',
-'       <div class="feature-icon"></div>',
-'     </li>',
-'   </ul>',
-// Add in these dots as a quick navigation for the carousel
-' <div class="carousel-navigation-container">',
-'   <ul class="carousel-navigation"><li class="active" data-index="0"></li><li data-index="1"></li><li data-index="2"></li></ul>',
-' </div>',
-' </div>',
+// // In the view, we will use the flickable zepto plugin here, to animate this carousel.
+// ' <div class="carousel-container">',
+// '   <ul class="carousel-list">',
+// '     <li class="carousel-item native-look-and-feel">',
+// '     </li>',
+// '     <li class="carousel-item carousel-content">',
+// '       <summary>Carousels using flickable.js</summary>',
+// '       <i class="icon-picture"></i>',
+// '     </li>',
+// '     <li class="carousel-item backbone-content">',
+// '       <summary>Integrated with Backbone.js</summary>',
+// '       <div class="feature-icon"></div>',
+// '     </li>',
+// '   </ul>',
+// // Add in these dots as a quick navigation for the carousel
+// ' <div class="carousel-navigation-container">',
+// '   <ul class="carousel-navigation"><li class="active" data-index="0"></li><li data-index="1"></li><li data-index="2"></li></ul>',
+// ' </div>',
+// ' </div>',
 //Input field
-' <label>Location:</label><input id="input-location" type="text" placeholder="City, State or Zipcode">',
-  ' <label class="date-label">Pick-up Date:</label><input class="date" type="date">',
-  // ' <label class="date-label">Return Date & Time:</label><input type="date"><input type="time">',
-// Use a ratchet button here
-' <div class="button-positive button-block show-more-button">Find a rental car near you!</div>',
+'<div class="container-fluid">',
+  '<div class="row-fluid">',
+    ' <label>Location:</label><input id="input-location" type="text" placeholder="City, State or Zipcode">',
+  '</div>',
+  '<div class="row-fluid">',
+    '<div class="span8">',
+      ' <label>Pick-up Date:</label><input type="date">',
+    '</div>',
+    '<div class="span4">',
+      ' <label>Pick-up Time:</label><input type="time">',
+    '</div>',
+  '</div>',
+  '<div class="row-fluid">',
+    '<div class="span8">',
+      ' <label>Return Date:</label><input type="date">',
+    '</div>',
+    '<div class="span4">',
+      ' <label>Return Time:</label><input type="time">',
+    '</div>',
+  '</div>',
+  // Use a ratchet button here
+  ' <div class="button-positive button-block show-more-button">Find a rental car near you!</div>',
+  '</div>',
 '</div>'
 // Join the array with a new-line for a quick and easy html template.
 ].join('\n');

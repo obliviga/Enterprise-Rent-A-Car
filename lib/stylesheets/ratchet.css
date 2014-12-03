@@ -126,7 +126,7 @@ a {
   bottom: 0;
   left: 0;
   overflow: auto;
-  background: #fff;
+  background: #3d3d3d;
   -webkit-transition-property: top, bottom;
           transition-property: top, bottom;
   -webkit-transition-duration: .2s, .2s;  

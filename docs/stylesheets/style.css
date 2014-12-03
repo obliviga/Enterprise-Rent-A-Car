@@ -331,15 +331,15 @@ body #bsap_aplink, body #bsap_aplink:hover { display: block; font-size: 10px; ma
 
 /*CUSTOM STYLING*/
 
-label {
-  padding-left: 1em;
-}
-
 input {
   padding-left: 1em !important;
 }
 
-#input-date  {
+label {
+  color: #ffffff;
+}
+
+#input-date {
   width: 50% !important;
 }
 
@@ -368,11 +368,6 @@ input {
 .unavailable {
   margin-right: 20px;
 }
-
-.date {
-  width: 50%;
-}
-
 
 
 
