@@ -40,7 +40,9 @@ var HomeTemplate = [
 ' </div>',
 ' </div>',
 //Input field
-' <input type="text" placeholder="Please enter a location (City, State or Zipcode)">',
+' <label>Location:</label><input id="input-location" type="text" placeholder="City, State or Zipcode">',
+  ' <label class="date-label">Pick-up Date:</label><input class="date" type="date">',
+  // ' <label class="date-label">Return Date & Time:</label><input type="date"><input type="time">',
 // Use a ratchet button here
 ' <div class="button-positive button-block show-more-button">Find a rental car near you!</div>',
 '</div>'
