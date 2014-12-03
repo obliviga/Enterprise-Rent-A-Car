@@ -339,6 +339,10 @@ body #bsap_aplink, body #bsap_aplink:hover { display: block; font-size: 10px; ma
   float: left;
 }
 
+.right {
+  float: right;
+}
+
 input {
   padding-left: 1em !important;
 }
@@ -387,10 +391,31 @@ a .selected-item {
   background-color: gray !important;
 }
 
+.vehicle_subtitle {
+  width: 46%;
+  margin-bottom: -10px;
+  text-align: center;
+}
 
+.price_snippet {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 100px;
+  color: #000000;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 13px;
+  padding: 4px 9px;
+}
 
+.both_price_snippets {
+  margin-right: -60px;
+}
 
-
+.details {
+  margin-top: -37px !important;
+  margin-right: -8px !important;
+}
 
 
 

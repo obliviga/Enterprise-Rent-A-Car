@@ -356,7 +356,7 @@ var VehicleResultsTemplate = [
 '<br>',
 '<div id="result-headings">',
 '<p id="location-heading">Vehicles</p>',
-'<p id="availibility-heading">Starting Price per Day</p>',
+'<p id="availibility-heading">Starting Price</p>',
 '</div>',
 ' <div class="ratchet-examples">',
 '  <ul class="list inset">',
@@ -364,38 +364,53 @@ var VehicleResultsTemplate = [
 '<div class="row-fluid">',
 '     <a href="#">',
 '       <img src="./docs/images/smallCar.gif">',
-'       <span class="count">$12 / day</span>',
-'     </a>',
+'<div class="both_price_snippets">',
+'       <span class="price_snippet right">$120 Total</span>',
+'       <span class="price_snippet right">$12 / day</span>',
 '</div>',
+'     </a>',
+'     <p class="vehicle_subtitle"><b>Economy:</b> Chevy Spark or similar</p>',
+'</div>',
+'<a class="button-positive details">Details</a>',
 '   </li>',
 '   <li>',
 '<div class="row-fluid">',
 '     <a href="#">',
 '       <img src="./docs/images/fullsizeCar.png">',
-'       <span class="count">$12 / day</span>',
-'     </a>',
+'<div class="both_price_snippets">',
+'       <span class="price_snippet right">$320 Total</span>',
+'       <span class="price_snippet right">$32 / day</span>',
 '</div>',
+'     </a>',
+'     <p class="vehicle_subtitle"><b>Full Size:</b> Ford Fusion or similar</p>',
+'</div>',
+'<a class="button-positive details">Details</a>',
 '   </li>',
 '   <li>',
 '<div class="row-fluid">',
 '     <a href="#">',
-'       <img src="./docs/images/smallCar.gif">',
-'       <span class="count">$12 / day</span>',
-'     </a>',
+'       <img src="./docs/images/minivan.gif">',
+'<div class="both_price_snippets">',
+'       <span class="price_snippet right">$604 Total</span>',
+'       <span class="price_snippet right">$64 / day</span>',
 '</div>',
+'     </a>',
+'     <p class="vehicle_subtitle"><b>Minivan:</b> Nissan Quest or similar</p>',
+'</div>',
+'<a class="button-positive details">Details</a>',
 '   </li>',
 '   <li>',
+'<div class="row-fluid">',
 '     <a href="#">',
-'       AUSTIN BRAKER LANE',
-'<br>',
-'       707 E. BRAKER LN STE 103',
-'<br>',
-'       AUSTIN, TX 78753',
-'<br>',
-'       ( 4 miles )',
-'       <span class="chevron"></span>',
-'       <span class="count">4</span>',
+'       <img src="./docs/images/convertible.png">',
+'<div class="both_price_snippets">',
+'       <span class="price_snippet right">$604 Total</span>',
+'       <span class="price_snippet right">$64 / day</span>',
+'</div>',
 '     </a>',
+'     <p class="vehicle_subtitle"><b>Convertible:</b> Ford Mustang or similar</p>',
+'</div>',
+'<a class="button-positive details button-next">Details</a>',
 '   </li>',
 '  </ul>',
 ' </div>',
@@ -413,6 +428,7 @@ var VehicleResultsView = Jr.View.extend({
 
   events: {
     'click .button-prev': 'onClickButtonPrev',
+    'click .button-next': 'onClickButtonNext',
     'click .button-filter': 'onClickButtonFilter'
   },
 
@@ -425,6 +441,19 @@ var VehicleResultsView = Jr.View.extend({
         // This time slide to the right because we are going back
         type: Jr.Navigator.animations.SLIDE_STACK,
         direction: Jr.Navigator.directions.RIGHT
+      }
+    });
+  },
+
+  onClickButtonNext: function() {
+    // Trigger the animation for the back button on the toolbar
+
+    Jr.Navigator.navigate('rental_form',{
+      trigger: true,
+      animation: {
+        // This time slide to the right because we are going back
+        type: Jr.Navigator.animations.SLIDE_STACK,
+        direction: Jr.Navigator.directions.LEFT
       }
     });
   },
@@ -498,6 +527,138 @@ var VehicleFilterView = Jr.View.extend({
     this.$('.example-toggle').toggleClass('active');
   }
 
+});
+
+// ## RentalFormTemplate
+
+var RentalFormTemplate = [
+
+'<header class="bar-title">',
+' <div class="header-animated">',
+' <div class="button-prev">Back</div>',
+' <h1 class="title">Your Order</h1>',
+'</header>',
+'<div class="container-fluid content filter-content">',
+
+' <p>Renter\'s Details:</p>',
+' <div class="row-fluid">',
+'   <div class="span6">',
+'     <label>First Name: </label><input type="text">  ',
+'   </div> ',
+'   <div class="span6">',
+'     <label>Last Name: </label><input type="text">  ',
+'   </div> ',
+' </div> ',
+' <div class="row-fluid">',
+'   <div class="span6">',
+'     <label>Phone: </label><input type="tel" name="usrtel">  ',
+'   </div> ',
+'   <div class="span6">',
+'     <label>E-mail: </label><input type="email">  ',
+'   </div> ',
+' </div> ',
+' <div class="row-fluid">',
+' <label>Credit Card Type:</label>',
+  '<select>',
+    '<option value="visa">Visa</option>',
+    '<option value="mastercard">Mastercard</option>',
+    '<option value="discover">Discover</option>',
+    '<option value="jcb">JCB</option>',
+    '<option value="american_express">American Express</option>',
+  '</select>',
+'<br>',
+' <p>Renter\'s Address:</p>',
+' </div> ',
+' <div class="row-fluid">',
+'   <div class="span12">',
+'     <label>Street Address Line 1: </label><input type="text">  ',
+'   </div> ',
+' </div> ',
+' <div class="row-fluid">',
+'   <div class="span12">',
+'     <label>Street Address Line 2: </label><input type="text">  ',
+'   </div> ',
+' </div> ',
+' <div class="row-fluid">',
+'   <div class="span6">',
+'     <label>City: </label><input type="text">  ',
+'   </div> ',
+'   <div class="span2">',
+'     <label>State: </label><input type="text">  ',
+'   </div> ',
+'   <div class="span4">',
+'     <label>ZIP: </label><input type="text">  ',
+'   </div> ',
+' </div> ',
+  '<a class="button-positive">Next</a>',
+'</div> '
+
+].join('\n');
+
+// ' <p>Renter\'s Driver\'s License:</p>',
+// ' </div> ',
+// ' <div class="row-fluid">',
+// '   <div class="span10">',
+// '     <label>License Number: </label><input type="text">  ',
+// '   </div> ',
+// '   <div class="span2">',
+// '     <label>Issued by: </label><input type="text" placeholder="State">  ',
+// '   </div> ',
+// ' </div> ',
+// ' <div class="row-fluid">',
+// '   <div class="span12">',
+// '     <label>Expiration Date: </label><input type="date">  ',
+// '   </div> ',
+// ' </div> ',
+// ' <div class="row-fluid">',
+// '   <div class="span12">',
+// '     <label>Date of Birth: </label><input type="date">  ',
+// '   </div> ',
+// ' </div> ',
+// ' <div class="row-fluid">',
+// '   <img src="./docs/images/mustang.png">',
+// ' </div> ',
+// ## RentalFormView
+
+var RentalFormView = Jr.View.extend({
+  render: function(){
+    this.$el.html(RentalFormTemplate);
+    return this;
+  },
+
+  events: {
+    'click .button-prev': 'onClickButtonPrev',
+    'click .button-next': 'onClickButtonNext',
+    'click .example-toggle': 'onClickExampleToggle'
+  },
+
+  onClickButtonPrev: function() {
+    // Trigger the animation for the back button on the toolbar
+
+    Jr.Navigator.navigate('vehicle_results',{
+      trigger: true,
+      animation: {
+        // This time slide to the right because we are going back
+        type: Jr.Navigator.animations.SLIDE_STACK,
+        direction: Jr.Navigator.directions.RIGHT
+      }
+    });
+  },
+
+  onClickButtonNext: function() {
+    Jr.Navigator.navigate('results',{
+      trigger: true,
+      animation: {
+        type: Jr.Navigator.animations.SLIDE_STACK,
+        direction: Jr.Navigator.directions.LEFT
+      }
+    });
+  },
+
+  onClickExampleToggle: function() {
+    // Simple example of how the on/off toggle switch works.
+    this.$('.example-toggle').toggleClass('active');
+  }
 });
 
 // ### RatchetTemplate
@@ -591,6 +752,7 @@ var AppRouter = Jr.Router.extend({
     'filter': 'filter',
     'vehicle_results': 'vehicle_results',
     'vehicle_filter': 'vehicle_filter',
+    'rental_form': 'rental_form',
     'ratchet': 'ratchet'
   },
 
@@ -613,6 +775,10 @@ var AppRouter = Jr.Router.extend({
   vehicle_filter: function() {
     var vehicleFilterView = new VehicleFilterView();
     this.renderView(vehicleFilterView);
+  },
+  rental_form: function() {
+    var rentalFormView = new RentalFormView();
+    this.renderView(rentalFormView);
   },
   ratchet: function() {
     var ratchetView = new RatchetView();
