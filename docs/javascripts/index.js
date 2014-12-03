@@ -53,13 +53,13 @@ var HomeTemplate = [
   '</div>',
   '<div class="row-fluid">',
   '<label><input type="checkbox">',
-      '&nbsp;Return to a different location</label>',
+      '&nbsp;Returning to a different location</label>',
       
   '</div>',
   // Use a ratchet button here
   ' <div class="button-positive button-block show-more-button">Find a rental car!</div>',
   '<br>',
-    '<footer>&copy; 2014 Enterprise Rent-A-Car. Patent Pending</footer>',
+    '<footer>&copy; 2014 Enterprise Rent-A-Car.</footer>',
   '</div>',
 
 '</div>'
@@ -150,7 +150,7 @@ var ResultsTemplate = [
 ' <div class="ratchet-examples">',
 '  <ul class="list inset">',
 '   <li>',
-'     <a href="#">',
+'     <a class="result-link">',
 '       AUSTIN NORTH',
 '<br>',
 '       8310 RESEARCH BLVD',
@@ -230,6 +230,7 @@ var ResultsView = Jr.View.extend({
 
   events: {
     'click .button-prev': 'onClickButtonPrev',
+    'click .result-link': 'onClickResult',
     'click .button-filter': 'onClickButtonFilter'
   },
 
@@ -245,13 +246,21 @@ var ResultsView = Jr.View.extend({
       }
     });
   },
-
   onClickButtonFilter: function() {
     Jr.Navigator.navigate('filter',{
       trigger: true,
       animation: {
         type: Jr.Navigator.animations.SLIDE_STACK,
         direction: Jr.Navigator.directions.RIGHT
+      }
+    });
+  },
+  onClickResult: function() {
+    Jr.Navigator.navigate('vehicle_results',{
+      trigger: true,
+      animation: {
+        type: Jr.Navigator.animations.SLIDE_STACK,
+        direction: Jr.Navigator.directions.LEFT
       }
     });
   }
@@ -327,6 +336,131 @@ var FilterView = Jr.View.extend({
   }
 
 });
+
+// ### VehicleResultsTemplate
+var VehicleResultsTemplate = [
+
+'<header class="bar-title">',
+' <div class="header-animated">',
+// If you want the contents of the header to be animated as well, put those elements inside a div
+// with a 'header-animated' class.
+'   <div class="button-prev">Back</div>',
+'   <h1 class="title">Vehicle Availibility</h1>',
+// '   <div class="button-next">Next</div>',
+'</header>',
+'<div class="content ratchet-content">',
+'  <a class="button-filter">Filter</a>', 
+// '  <input type="search" placeholder="Search" id="results-input">',
+'<br>',
+'<br>',
+'<div id="result-headings">',
+'<p id="location-heading">Locations</p>',
+'<p id="availibility-heading">Availibility</p>',
+'</div>',
+' <div class="ratchet-examples">',
+'  <ul class="list inset">',
+'   <li>',
+'     <a href="here lies the function promise to move on to the next page">',
+'       <img src="./docs/images/smallCar.gif">',
+'       <span class="chevron"></span>',
+'       <span class="count">12</span>',
+'     </a>',
+'   </li>',
+'   <li>',
+'     <a href="#">',
+'       AUSTIN DOWNTOWN',
+'<br>',
+'       1201 WEST 5TH',
+'<br>',
+'       AUSTIN, TX 78703',
+'<br>',
+'       ( 2 miles )',
+'       <span class="chevron"></span>',
+'       <span class="count">30</span>',
+'     </a>',
+'   </li>',
+'   <li>',
+'     <a href="#">',
+'       AUSTIN SOUTH',
+'<br>',
+'       4352 S INTERSTATE 35',
+'<br>',
+'       AUSTIN, TX 78745',
+'<br>',
+'       ( 2 miles )',
+'       <span class="chevron"></span>',
+'       <span class="count">4</span>',
+'     </a>',
+'   </li>',
+'   <li>',
+'     <a href="#">',
+'       BARTON SPRINGS',
+'<br>',
+'       319 S LAMAR',
+'<br>',
+'       AUSTIN, TX 78704',
+'<br>',
+'       ( 3 miles )',
+'       <span class="count unavailable">0</span>',
+'     </a>',
+'   </li>',
+'   <li>',
+'     <a href="#">',
+'       AUSTIN BRAKER LANE',
+'<br>',
+'       707 E. BRAKER LN STE 103',
+'<br>',
+'       AUSTIN, TX 78753',
+'<br>',
+'       ( 4 miles )',
+'       <span class="chevron"></span>',
+'       <span class="count">4</span>',
+'     </a>',
+'   </li>',
+'  </ul>',
+'  <div class="example-cnts"><span class="count-positive">1</span><span class="count">2</span><span class="count">3</span><span class="count">4</span></div>',
+' </div>',
+'</div>'
+
+].join('\n');
+
+// ### VehicleResultsView
+
+var VehicleResultsView = Jr.View.extend({
+  render: function(){
+    this.$el.html(VehicleResultsTemplate);
+    return this;
+  },
+
+  events: {
+    'click .button-prev': 'onClickButtonPrev',
+    'click .button-filter': 'onClickButtonFilter'
+  },
+
+  onClickButtonPrev: function() {
+    // Trigger the animation for the back button on the toolbar
+
+    Jr.Navigator.navigate('results',{
+      trigger: true,
+      animation: {
+        // This time slide to the right because we are going back
+        type: Jr.Navigator.animations.SLIDE_STACK,
+        direction: Jr.Navigator.directions.RIGHT
+      }
+    });
+  },
+
+  onClickButtonFilter: function() {
+    Jr.Navigator.navigate('filter',{
+      trigger: true,
+      animation: {
+        type: Jr.Navigator.animations.SLIDE_STACK,
+        direction: Jr.Navigator.directions.RIGHT
+      }
+    });
+  }
+});
+
 // ### RatchetTemplate
 // This is just a template that shows different UI elements that you can use from the Ratchet project
 
@@ -416,6 +550,7 @@ var AppRouter = Jr.Router.extend({
     'home': 'home',
     'results': 'results',
     'filter': 'filter',
+    'vehicle_results': 'vehicle_results',
     'ratchet': 'ratchet'
   },
 
@@ -430,6 +565,10 @@ var AppRouter = Jr.Router.extend({
   filter: function() {
     var filterView = new FilterView();
     this.renderView(filterView);
+  },
+  vehicle_results: function() {
+    var vehicleResultsView = new VehicleResultsView();
+    this.renderView(vehicleResultsView);
   },
   ratchet: function() {
     var ratchetView = new RatchetView();

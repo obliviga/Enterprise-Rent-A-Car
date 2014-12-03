@@ -379,7 +379,9 @@ label {
   margin-right: 20px;
 }
 
-
+.result-link {
+  cursor: pointer;
+}
 
 
 
