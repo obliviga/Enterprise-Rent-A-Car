@@ -40,9 +40,9 @@ var HomeTemplate = [
 ' </div>',
 ' </div>',
 //Input field
-
+' <input type="text" placeholder="Please enter a location (City, State or Zipcode)">',
 // Use a ratchet button here
-' <div class="button-positive button-block show-more-button">Show me more!</div>',
+' <div class="button-positive button-block show-more-button">Find a rental car near you!</div>',
 '</div>'
 // Join the array with a new-line for a quick and easy html template.
 ].join('\n');
@@ -108,6 +108,34 @@ var HomeView = Jr.View.extend({
 
 });
 
+// ### TabTemplate
+var TabTemplate = [
+
+'<nav class="bar bar-tab">',
+  '<a class="tab-item active" href="#">',
+    '<span class="icon icon-home"></span>',
+    '<span class="tab-label">Home</span>',
+  '</a>',
+  '<a class="tab-item" href="#">',
+    '<span class="icon icon-person"></span>',
+    '<span class="tab-label">Profile</span>',
+  '</a>',
+  '<a class="tab-item" href="#">',
+    '<span class="icon icon-star-filled"></span>',
+    '<span class="tab-label">Favorites</span>',
+  '</a>',
+  '<a class="tab-item" href="#">',
+    '<span class="icon icon-search"></span>',
+    '<span class="tab-label">Search</span>',
+  '</a>',
+  '<a class="tab-item" href="#">',
+    '<span class="icon icon-gear"></span>',
+    '<span class="tab-label">Settings</span>',
+  '</a>',
+'</nav>'
+
+].join('\n');
+
 // ### RatchetTemplate
 // This is just a template that shows different UI elements that you can use from the Ratchet project
 
@@ -117,7 +145,7 @@ var RatchetTemplate = [
 // If you want the contents of the header to be animated as well, put those elements inside a div
 // with a 'header-animated' class.
 '   <div class="button-prev">Back</div>',
-'   <h1 class="title">Ratchet CSS</h1>',
+'   <h1 class="title">Rentals near Austin, TX</h1>',
 '   <div class="button-next">Next</div>',
 '</header>',
 '<div class="content ratchet-content">',
