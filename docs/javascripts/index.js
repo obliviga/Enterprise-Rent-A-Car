@@ -75,12 +75,12 @@ var HomeView = Jr.View.extend({
   },
 
   events: {
-    'click .show-more-button': 'onClickShowMoreButton',
+    'click .show-more-button': 'onClickFindRentalButton',
     'onScroll .carousel-list': 'onScrollCarousel',
     'click .carousel-navigation li': 'onClickCarouselNavigationItem'
   },
 
-  onClickShowMoreButton: function() {
+  onClickFindRentalButton: function() {
     // Jr.Navigator works like Backbone.history.navigate, but it allows you to add an animation in the mix.
     Jr.Navigator.navigate('results',{
       trigger: true,
@@ -116,29 +116,87 @@ var ResultsTemplate = [
 // If you want the contents of the header to be animated as well, put those elements inside a div
 // with a 'header-animated' class.
 '   <div class="button-prev">Back</div>',
-'   <h1 class="title">TEST</h1>',
-'   <div class="button-next">Next</div>',
+'   <h1 class="title">Rentals Near Austin, TX</h1>',
+// '   <div class="button-next">Next</div>',
 '</header>',
 '<div class="content ratchet-content">',
-' <p>Jr. was inspired by Ratchet and pulls in their gorgeous styles.</p>',
-' <p>Here are some examples:</p>',
+'  <a class="button-filter">Filter</a>', 
+// '  <input type="search" placeholder="Search" id="results-input">',
+'<br>',
+'<br>',
+'<div id="result-headings">',
+'<p id="location-heading">Locations</p>',
+'<p id="availibility-heading">Availibility</p>',
+'</div>',
 ' <div class="ratchet-examples">',
 '  <ul class="list inset">',
 '   <li>',
 '     <a href="#">',
-'       List item 1',
+'       AUSTIN NORTH',
+'<br>',
+'       8310 RESEARCH BLVD',
+'<br>',
+'       AUSTIN, TX 78758',
+'<br>',
+'       ( 1 mile )',
+'       <span class="chevron"></span>',
+'       <span class="count">12</span>',
+'     </a>',
+'   </li>',
+'   <li>',
+'     <a href="#">',
+'       AUSTIN DOWNTOWN',
+'<br>',
+'       1201 WEST 5TH',
+'<br>',
+'       AUSTIN, TX 78703',
+'<br>',
+'       ( 2 miles )',
+'       <span class="chevron"></span>',
+'       <span class="count">30</span>',
+'     </a>',
+'   </li>',
+'   <li>',
+'     <a href="#">',
+'       AUSTIN SOUTH',
+'<br>',
+'       4352 S INTERSTATE 35',
+'<br>',
+'       AUSTIN, TX 78745',
+'<br>',
+'       ( 2 miles )',
+'       <span class="chevron"></span>',
+'       <span class="count">4</span>',
+'     </a>',
+'   </li>',
+'   <li>',
+'     <a href="#">',
+'       BARTON SPRINGS',
+'<br>',
+'       319 S LAMAR',
+'<br>',
+'       AUSTIN, TX 78704',
+'<br>',
+'       ( 3 miles )',
+'       <span class="count unavailable">0</span>',
+'     </a>',
+'   </li>',
+'   <li>',
+'     <a href="#">',
+'       AUSTIN BRAKER LANE',
+'<br>',
+'       707 E. BRAKER LN STE 103',
+'<br>',
+'       AUSTIN, TX 78753',
+'<br>',
+'       ( 4 miles )',
 '       <span class="chevron"></span>',
 '       <span class="count">4</span>',
 '     </a>',
 '   </li>',
 '  </ul>',
-'  <div class="button-block button-main">Block button</div>',
-'  <a class="button">Mini</a> <a class="button-main">buttons</a> <a class="button-positive">are</a> <a class="button-negative">awesome!</a>',
-'  <div class="toggle active example-toggle"><div class="toggle-handle"></div></div>',
-'  <div class="example-cnts"><span class="count">1</span><span class="count-main">2</span><span class="count-positive">3</span><span class="count-negative">4</span></div>',
-'  <input type="search" placeholder="Search">',
+'  <div class="example-cnts"><span class="count-positive">1</span><span class="count">2</span><span class="count">3</span><span class="count">4</span></div>',
 ' </div>',
-' <p>For more examples checkout the <a href="http://maker.github.com/ratchet/">ratchet project.</a></p>',
 '</div>'
 
 ].join('\n');
@@ -153,8 +211,7 @@ var ResultsView = Jr.View.extend({
 
   events: {
     'click .button-prev': 'onClickButtonPrev',
-    'click .button-next': 'onClickButtonNext',
-    'click .example-toggle': 'onClickExampleToggle'
+    'click .button-filter': 'onClickButtonFilter'
   },
 
   onClickButtonPrev: function() {
@@ -170,22 +227,55 @@ var ResultsView = Jr.View.extend({
     });
   },
 
-  onClickButtonNext: function() {
-    Jr.Navigator.navigate('pushstate',{
+  onClickButtonFilter: function() {
+    Jr.Navigator.navigate('filter',{
+      trigger: true,
+      animation: {
+        type: Jr.Navigator.animations.SLIDE_STACK,
+        direction: Jr.Navigator.directions.RIGHT
+      }
+    });
+  }
+});
+
+// ## FilterTemplate
+
+var FilterTemplate = [
+'<header class="bar-title">',
+' <div class="header-animated">',
+'   <div class="button-prev">Back</div>',
+'   <h1 class="title">Pushstate API</h1>',
+'</header>',
+'<div class="content pushstate-content">',
+'  <summary>In combination with backbone\'s routing and the pushstate api, Jr. maintains animations when you use pushstate.</summary>',
+'  <i class="icon-umbrella"></i>',
+'  <p>Push the browser back button to watch it work.</p>',
+'</div> '
+].join('\n');
+
+// ## FilterView
+
+var FilterView = Jr.View.extend({
+  render: function() {
+    this.$el.html(FilterTemplate);
+    return this;
+  },
+
+  events: {
+    'click .button-prev': 'onClickButtonPrev'
+  },
+
+  onClickButtonPrev: function() {
+    Jr.Navigator.navigate('results',{
       trigger: true,
       animation: {
         type: Jr.Navigator.animations.SLIDE_STACK,
         direction: Jr.Navigator.directions.LEFT
       }
     });
-  },
-
-  onClickExampleToggle: function() {
-    // Simple example of how the on/off toggle switch works.
-    this.$('.example-toggle').toggleClass('active');
   }
-});
 
+});
 // ### RatchetTemplate
 // This is just a template that shows different UI elements that you can use from the Ratchet project
 
@@ -264,46 +354,6 @@ var RatchetView = Jr.View.extend({
   }
 });
 
-// ## PushStateTemplate
-// Nothing new here
-
-var PushStateTemplate = [
-'<header class="bar-title">',
-' <div class="header-animated">',
-'   <div class="button-prev">Back</div>',
-'   <h1 class="title">Pushstate API</h1>',
-'</header>',
-'<div class="content pushstate-content">',
-'  <summary>In combination with backbone\'s routing and the pushstate api, Jr. maintains animations when you use pushstate.</summary>',
-'  <i class="icon-umbrella"></i>',
-'  <p>Push the browser back button to watch it work.</p>',
-'</div> '
-].join('\n');
-
-// ## PushStateView
-
-var PushStateView = Jr.View.extend({
-  render: function() {
-    this.$el.html(PushStateTemplate);
-    return this;
-  },
-
-  events: {
-    'click .button-prev': 'onClickButtonPrev'
-  },
-
-  onClickButtonPrev: function() {
-    Jr.Navigator.navigate('ratchet',{
-      trigger: true,
-      animation: {
-        type: Jr.Navigator.animations.SLIDE_STACK,
-        direction: Jr.Navigator.directions.RIGHT
-      }
-    });
-  }
-
-});
-
 //## Routing to your Views
 // Jr.Router is just like a Backbone.Router except we provide a renderView
 // that will automatically add the view to the dom and do the animation if
@@ -314,8 +364,8 @@ var AppRouter = Jr.Router.extend({
   routes: {
     'home': 'home',
     'results': 'results',
-    'ratchet': 'ratchet',
-    'pushstate': 'pushstate'
+    'filter': 'filter',
+    'ratchet': 'ratchet'
   },
 
   home: function(){
@@ -326,14 +376,13 @@ var AppRouter = Jr.Router.extend({
     var resultsView = new ResultsView();
     this.renderView(resultsView);
   },
+  filter: function() {
+    var filterView = new FilterView();
+    this.renderView(filterView);
+  },
   ratchet: function() {
     var ratchetView = new RatchetView();
     this.renderView(ratchetView);
-  },
-
-  pushstate: function() {
-    var pushStateView = new PushStateView();
-    this.renderView(pushStateView);
   }
 
 });
