@@ -82,7 +82,7 @@ var HomeView = Jr.View.extend({
 
   onClickShowMoreButton: function() {
     // Jr.Navigator works like Backbone.history.navigate, but it allows you to add an animation in the mix.
-    Jr.Navigator.navigate('ratchet',{
+    Jr.Navigator.navigate('results',{
       trigger: true,
       animation: {
         // Do a stacking animation and slide to the left.
@@ -108,33 +108,83 @@ var HomeView = Jr.View.extend({
 
 });
 
-// ### TabTemplate
-var TabTemplate = [
+// ### ResultsTemplate
+var ResultsTemplate = [
 
-'<nav class="bar bar-tab">',
-  '<a class="tab-item active" href="#">',
-    '<span class="icon icon-home"></span>',
-    '<span class="tab-label">Home</span>',
-  '</a>',
-  '<a class="tab-item" href="#">',
-    '<span class="icon icon-person"></span>',
-    '<span class="tab-label">Profile</span>',
-  '</a>',
-  '<a class="tab-item" href="#">',
-    '<span class="icon icon-star-filled"></span>',
-    '<span class="tab-label">Favorites</span>',
-  '</a>',
-  '<a class="tab-item" href="#">',
-    '<span class="icon icon-search"></span>',
-    '<span class="tab-label">Search</span>',
-  '</a>',
-  '<a class="tab-item" href="#">',
-    '<span class="icon icon-gear"></span>',
-    '<span class="tab-label">Settings</span>',
-  '</a>',
-'</nav>'
+'<header class="bar-title">',
+' <div class="header-animated">',
+// If you want the contents of the header to be animated as well, put those elements inside a div
+// with a 'header-animated' class.
+'   <div class="button-prev">Back</div>',
+'   <h1 class="title">TEST</h1>',
+'   <div class="button-next">Next</div>',
+'</header>',
+'<div class="content ratchet-content">',
+' <p>Jr. was inspired by Ratchet and pulls in their gorgeous styles.</p>',
+' <p>Here are some examples:</p>',
+' <div class="ratchet-examples">',
+'  <ul class="list inset">',
+'   <li>',
+'     <a href="#">',
+'       List item 1',
+'       <span class="chevron"></span>',
+'       <span class="count">4</span>',
+'     </a>',
+'   </li>',
+'  </ul>',
+'  <div class="button-block button-main">Block button</div>',
+'  <a class="button">Mini</a> <a class="button-main">buttons</a> <a class="button-positive">are</a> <a class="button-negative">awesome!</a>',
+'  <div class="toggle active example-toggle"><div class="toggle-handle"></div></div>',
+'  <div class="example-cnts"><span class="count">1</span><span class="count-main">2</span><span class="count-positive">3</span><span class="count-negative">4</span></div>',
+'  <input type="search" placeholder="Search">',
+' </div>',
+' <p>For more examples checkout the <a href="http://maker.github.com/ratchet/">ratchet project.</a></p>',
+'</div>'
 
 ].join('\n');
+
+// ### ResultsView
+
+var ResultsView = Jr.View.extend({
+  render: function(){
+    this.$el.html(ResultsTemplate);
+    return this;
+  },
+
+  events: {
+    'click .button-prev': 'onClickButtonPrev',
+    'click .button-next': 'onClickButtonNext',
+    'click .example-toggle': 'onClickExampleToggle'
+  },
+
+  onClickButtonPrev: function() {
+    // Trigger the animation for the back button on the toolbar
+
+    Jr.Navigator.navigate('home',{
+      trigger: true,
+      animation: {
+        // This time slide to the right because we are going back
+        type: Jr.Navigator.animations.SLIDE_STACK,
+        direction: Jr.Navigator.directions.RIGHT
+      }
+    });
+  },
+
+  onClickButtonNext: function() {
+    Jr.Navigator.navigate('pushstate',{
+      trigger: true,
+      animation: {
+        type: Jr.Navigator.animations.SLIDE_STACK,
+        direction: Jr.Navigator.directions.LEFT
+      }
+    });
+  },
+
+  onClickExampleToggle: function() {
+    // Simple example of how the on/off toggle switch works.
+    this.$('.example-toggle').toggleClass('active');
+  }
+});
 
 // ### RatchetTemplate
 // This is just a template that shows different UI elements that you can use from the Ratchet project
@@ -199,7 +249,7 @@ var RatchetView = Jr.View.extend({
   },
 
   onClickButtonNext: function() {
-    Jr.Navigator.navigate('pushstate',{
+    Jr.Navigator.navigate('results',{
       trigger: true,
       animation: {
         type: Jr.Navigator.animations.SLIDE_STACK,
@@ -263,6 +313,7 @@ var PushStateView = Jr.View.extend({
 var AppRouter = Jr.Router.extend({
   routes: {
     'home': 'home',
+    'results': 'results',
     'ratchet': 'ratchet',
     'pushstate': 'pushstate'
   },
@@ -271,7 +322,10 @@ var AppRouter = Jr.Router.extend({
     var homeView = new HomeView();
     this.renderView(homeView);
   },
-
+  results: function(){
+    var resultsView = new ResultsView();
+    this.renderView(resultsView);
+  },
   ratchet: function() {
     var ratchetView = new RatchetView();
     this.renderView(ratchetView);
