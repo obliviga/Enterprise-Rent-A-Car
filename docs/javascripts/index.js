@@ -371,7 +371,7 @@ var VehicleResultsTemplate = [
 '     </a>',
 '     <p class="vehicle_subtitle"><b>Economy:</b> Chevy Spark or similar</p>',
 '</div>',
-'<a class="button-positive details">Details</a>',
+'<a class="button-positive details button-next">Details</a>',
 '   </li>',
 '   <li>',
 '<div class="row-fluid">',
@@ -410,7 +410,7 @@ var VehicleResultsTemplate = [
 '     </a>',
 '     <p class="vehicle_subtitle"><b>Convertible:</b> Ford Mustang or similar</p>',
 '</div>',
-'<a class="button-positive details button-next">Details</a>',
+'<a class="button-positive details">Details</a>',
 '   </li>',
 '  </ul>',
 ' </div>',
@@ -590,34 +590,11 @@ var RentalFormTemplate = [
 '     <label>ZIP: </label><input type="text">  ',
 '   </div> ',
 ' </div> ',
-  '<a class="button-positive">Next</a>',
+  '<a class="button-positive right button-next">Next</a>',
 '</div> '
 
 ].join('\n');
 
-// ' <p>Renter\'s Driver\'s License:</p>',
-// ' </div> ',
-// ' <div class="row-fluid">',
-// '   <div class="span10">',
-// '     <label>License Number: </label><input type="text">  ',
-// '   </div> ',
-// '   <div class="span2">',
-// '     <label>Issued by: </label><input type="text" placeholder="State">  ',
-// '   </div> ',
-// ' </div> ',
-// ' <div class="row-fluid">',
-// '   <div class="span12">',
-// '     <label>Expiration Date: </label><input type="date">  ',
-// '   </div> ',
-// ' </div> ',
-// ' <div class="row-fluid">',
-// '   <div class="span12">',
-// '     <label>Date of Birth: </label><input type="date">  ',
-// '   </div> ',
-// ' </div> ',
-// ' <div class="row-fluid">',
-// '   <img src="./docs/images/mustang.png">',
-// ' </div> ',
 // ## RentalFormView
 
 var RentalFormView = Jr.View.extend({
@@ -646,7 +623,88 @@ var RentalFormView = Jr.View.extend({
   },
 
   onClickButtonNext: function() {
-    Jr.Navigator.navigate('results',{
+    Jr.Navigator.navigate('rental_form2',{
+      trigger: true,
+      animation: {
+        type: Jr.Navigator.animations.SLIDE_STACK,
+        direction: Jr.Navigator.directions.LEFT
+      }
+    });
+  },
+
+  onClickExampleToggle: function() {
+    // Simple example of how the on/off toggle switch works.
+    this.$('.example-toggle').toggleClass('active');
+  }
+});
+
+// ## RentalFormTemplate2
+
+var RentalFormTemplate2 = [
+
+'<header class="bar-title">',
+' <div class="header-animated">',
+' <div class="button-prev">Back</div>',
+' <h1 class="title">Your Order</h1>',
+'</header>',
+'<div class="container-fluid content filter-content">',
+' <p>Renter\'s Driver\'s License:</p>',
+' <div class="row-fluid">',
+'   <div class="span8">',
+'     <label>License Number: </label><input type="text">  ',
+'   </div> ',
+'   <div class="span4">',
+'     <label>Issued by: </label><input type="text" placeholder="State">  ',
+'   </div> ',
+' </div> ',
+' <div class="row-fluid">',
+'   <div class="span12">',
+'     <label>Expiration Date: </label><input type="date">  ',
+'   </div> ',
+' </div> ',
+' <div class="row-fluid">',
+'   <div class="span12">',
+'     <label>Date of Birth: </label><input type="date">  ',
+'   </div> ',
+' </div> ',
+' <div class="row-fluid">',
+'   <img src="./docs/images/mustang.png">',
+' </div> ',
+'<a class="button-positive right button-next">Complete Order</a>',
+'</div> '
+
+].join('\n');
+
+
+// ## RentalFormView
+
+var RentalFormView2 = Jr.View.extend({
+  render: function(){
+    this.$el.html(RentalFormTemplate2);
+    return this;
+  },
+
+  events: {
+    'click .button-prev': 'onClickButtonPrev',
+    'click .button-next': 'onClickButtonNext',
+    'click .example-toggle': 'onClickExampleToggle'
+  },
+
+  onClickButtonPrev: function() {
+    // Trigger the animation for the back button on the toolbar
+
+    Jr.Navigator.navigate('rental_form',{
+      trigger: true,
+      animation: {
+        // This time slide to the right because we are going back
+        type: Jr.Navigator.animations.SLIDE_STACK,
+        direction: Jr.Navigator.directions.RIGHT
+      }
+    });
+  },
+
+  onClickButtonNext: function() {
+    Jr.Navigator.navigate('confirmation',{
       trigger: true,
       animation: {
         type: Jr.Navigator.animations.SLIDE_STACK,
@@ -753,6 +811,8 @@ var AppRouter = Jr.Router.extend({
     'vehicle_results': 'vehicle_results',
     'vehicle_filter': 'vehicle_filter',
     'rental_form': 'rental_form',
+    'rental_form2': 'rental_form2',
+    'confirmation': 'confirmation',
     'ratchet': 'ratchet'
   },
 
@@ -779,6 +839,14 @@ var AppRouter = Jr.Router.extend({
   rental_form: function() {
     var rentalFormView = new RentalFormView();
     this.renderView(rentalFormView);
+  },
+  rental_form2: function() {
+    var rentalFormView2 = new RentalFormView2();
+    this.renderView(rentalFormView2);
+  },
+  confirmation: function() {
+    var confirmationView = new ConfirmationView();
+    this.renderView(confirmationView);
   },
   ratchet: function() {
     var ratchetView = new RatchetView();
