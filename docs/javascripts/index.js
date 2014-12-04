@@ -676,7 +676,7 @@ var RentalFormTemplate2 = [
 ].join('\n');
 
 
-// ## RentalFormView
+// ## RentalFormView2
 
 var RentalFormView2 = Jr.View.extend({
   render: function(){
@@ -705,6 +705,56 @@ var RentalFormView2 = Jr.View.extend({
 
   onClickButtonNext: function() {
     Jr.Navigator.navigate('confirmation',{
+      trigger: true,
+      animation: {
+        type: Jr.Navigator.animations.SLIDE_STACK,
+        direction: Jr.Navigator.directions.LEFT
+      }
+    });
+  },
+
+  onClickExampleToggle: function() {
+    // Simple example of how the on/off toggle switch works.
+    this.$('.example-toggle').toggleClass('active');
+  }
+});
+
+
+
+
+
+// ## ConfirmationTemplate
+
+var ConfirmationTemplate = [
+
+'<header class="bar-title">',
+' <div class="header-animated">',
+' <h1 class="title">Your Order</h1>',
+'</header>',
+'<div class="container-fluid content filter-content">',
+' <p>Thank you for your order!</p>',
+' <p>Please check your email for the next steps in receiving your rental.</p>',
+'  <div class="button-block button-main button-next">Home</div>',
+'</div> '
+
+].join('\n');
+
+
+// ## ConfirmationView
+
+var ConfirmationView = Jr.View.extend({
+  render: function(){
+    this.$el.html(ConfirmationTemplate);
+    return this;
+  },
+
+  events: {
+    'click .button-next': 'onClickButtonNext',
+    'click .example-toggle': 'onClickExampleToggle'
+  },
+
+  onClickButtonNext: function() {
+    Jr.Navigator.navigate('home',{
       trigger: true,
       animation: {
         type: Jr.Navigator.animations.SLIDE_STACK,
